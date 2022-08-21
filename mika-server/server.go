@@ -14,17 +14,18 @@ type PageData struct {
 func main() {
 	var movements uint = 0
 
-	// reset the movements every 24 hours
-	DAY := 24 * 60 * 60 * 1000 * time.Millisecond
-
-	ticker := time.NewTicker(DAY)
-
-	go func() {
-		for {
-			<-ticker.C
-			movements = 0
-		}
-	}()
+	// reset the movements every midnight
+    go func() {
+        now := time.Now()
+        midnight := time.Date(now.Year(), now.Month(), now.Day(),
+                                23, 59, 59, 999, now.Location())
+        nowToMidnight := midnight.Sub(now)
+        for {
+            time.Sleep(nowToMidnight)
+            nowToMidnight = 24 * time.Hour
+            movements = 0
+        }
+    }()
 
 	// adds 1 to the movements
 	http.HandleFunc("/add", func(w http.ResponseWriter, _ *http.Request) {
