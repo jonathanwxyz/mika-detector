@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MikaDetector5000</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                margin: auto;
+                font-family: sans-serif;
+                color: #e8e6e3;
+                background: #181a1b;
+                font-size: 13pt;
+                text-align: center;
+            }
+
+            .big {
+                font-size: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>MikaDetector5000</h1>
+        <h3>Mika has come or gone {{printf "%d" .Movements}} times today</h3>
+        <h1 class="big">{{printf "%d" .Movements}}</h1>
+    </body>
+</html>
