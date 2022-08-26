@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -48,5 +50,16 @@ func main() {
 		tmpl.Execute(w, data)
 	})
 
-	http.ListenAndServe(":8090", nil)
+    port := getPort()
+    log.Print("Listening on: " + port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+func getPort() string {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8090"
+        log.Print("INFO: Unable to find port environment variable, defaulting to " + port)
+    }
+    return port
 }
